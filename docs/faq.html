@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://kit.fontawesome.com/d1c5e96d9a.js" crossorigin="anonymous"></script>
+    <title>Ascent Physiotherapy - FAQ</title>
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <div class="header">
+                <a href="index.html" class="header__logo">
+                    <img src="svg/logo.svg" alt="">
+                </a>
+                <nav class="nav">
+                    <a class="nav__hamburger-menu" onclick="showNav()"><i
+                            class="fa-solid fa-bars"></i></a>
+                    <ul class="nav__list" id="nav-list">
+                        <li class="nav__item">
+                            <a href="index.html" class="nav__link">Home</a>
+                        </li>
+                        <li class="nav__item">
+                            <a href="" class="nav__link nav__link--disabled">Services</a>
+                        </li>
+                        <li class="nav__item">
+                            <a href="team.html" class="nav__link">Team</a>
+                        </li>
+                        <li class="nav__item">
+                            <a href="faq.html" class="nav__link nav__link--current">FAQ</a>
+                        </li>
+                        <li class="nav__item">
+                            <a href="contact.html" class="nav__link">Contact</a>
+                        </li>
+                        <li class="nav__item">
+                            <a href="https://ascentphysiotherapy.janeapp.com/" target="_blank"
+                                class="nav__link">Book</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section>
+            <div class="hero-statement">
+                <div class="container">
+                    <h1>FAQ</h1>
+                    <p class="hero-detail__paragraph">Frequently asked questions. This is a collection of questions and answers designed to assist you in using our services. If you can't find what you're looking for, please reach out!</p>
+                </div>
+            </div>
+            <div class="container">
+                <div class="interact-container">
+                    <!-- First question is open at page load -->
+                    <!-- Copy lifted from https://coastalphysio.ca/overview-faqs/ -->
+                    <button class="accordion active">What should I expect from my first appointment?</button>
+                    <div class="panel" style="display: block; max-height: 162px;">
+                        <p class="accordion-paragraph">Your first appointment will generally take about 45 minutes. One
+                            of our therapists will conduct an initial assessment of your condition and medical history
+                            and will recommend the most appropriate treatment plan. In most cases, your initial visit
+                            will also include your first treatment.</p>
+                    </div>
+
+                    <button class="accordion">Do I need a doctor’s referral?</button>
+                    <div class="panel">
+                        <p class="accordion-paragraph">No. Physiotherapists are university trained medical professionals
+                            and primary care practitioners. This means that you have direct access to Physiotherapy
+                            without a doctor’s referral.
+                            We do recommend, however, that you communicate with your doctor about your participation in
+                            physiotherapy so that we can work together and share knowledge as required during your
+                            treatment.
+
+                            Please also note that some health insurance plans require a doctor’s referral before they
+                            will reimburse you for physiotherapy expenses. Consult your insurance provider directly to
+                            learn whether a referral is needed in your specific case prior to commencing treatment.</p>
+                    </div>
+
+                    <button class="accordion">What should I wear for my appointment?</button>
+                    <div class="panel">
+                        <p class="accordion-paragraph">You should wear comfortable, loose-fitting clothing that will
+                            allow exposure of the affected area.</p>
+                    </div>
+
+                    <button class="accordion">What is evidence-based treatment?</button>
+                    <div class="panel">
+                        <p class="accordion-paragraph">When we say we specialize in evidence-based treatment, we mean
+                            treatment based on research that has been proven to be effective in dealing with your
+                            particular condition.</p>
+                    </div>
+
+                    <button class="accordion">Is physiotherapy covered by BC’s Medical Services Plan (MSP?)</button>
+                    <div class="panel">
+                        <p class="accordion-paragraph">If you receive premium assistance through MSP then your
+                            physiotherapy will most likely be covered, minus a small user fee. Many seniors are also
+                            covered for physiotherapy through MSP. If you call us with your BC Care Card number, we can
+                            tell you if you are covered by MSP.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer">
+                <div class="footer__logo-and-disclaimer">
+                    <img class="footer__logo" src="svg/logo.svg" alt="">
+                    <p>This is a fictional website that was designed and coded as an educational exercise. It is not
+                        intended to be seen outside of the class environment. None of the content and images were
+                        approved by the business owner</p>
+                    <a href="https://ascentphysiotherapy.janeapp.com/" class="button">Book an Appointment</a>
+                </div>
+                <div class="footer__map">
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2582.0239488823695!2d-124.92710994853175!3d49.67268755087754!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x54881315b1258325%3A0xf21aee3501fe1122!2sAscent%20Physiotherapy!5e0!3m2!1sen!2sca!4v1669916452255!5m2!1sen!2sca"
+                        width="100%" height="500" style="border:0;" allowfullscreen="" loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"
+                        title="Map of area surrounding Ascent Physiotherapy"></iframe>
+                </div>
+                <div class="footer__contact-list">
+                    <div class="footer__contact-item">
+                        <h3 class="footer__contact-heading">Phone</h3>
+                        <a href="tel:+1-250-339-1039" class="footer__contact-details">(250) 339-1039</a>
+                    </div>
+                    <div class="footer__contact-item">
+                        <h3 class="footer__contact-heading">Email</h3>
+                        <a href="mailto:admin@ascentphysiotherapy.com"
+                            class="footer__contact-details">admin@ascentphysiotherapy.com</a>
+                    </div>
+                    <div class="footer__contact-item">
+                        <h3 class="footer__contact-heading">Address</h3>
+                        <p class="footer__contact-details">141A Nordin Street<br>Comox, BC, Canada<br>V9M 3N5</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function showNav() {
+            const navList = document.getElementById("nav-list");
+            navList.classList.toggle("nav__list--show-overlay");
+            const header = document.querySelector("header");
+            header.classList.toggle("show-overlay");
+        }
+
+        // Adds a delay to button actions, I felt adding the delay after the fact instead of directly in the HTML was cleaner
+        const buttons = document.querySelectorAll("a.button");
+        buttons.forEach(button => {
+            oldHref = button.getAttribute("href");
+            button.setAttribute("href", `javascript:setTimeout(()=>{window. location = '${oldHref}' },300);`)
+        })
+
+        var acc = document.getElementsByClassName("accordion");
+        var i;
+
+        for (i = 0; i < acc.length; i++) {
+            acc[i].addEventListener("click", function () {
+                /* Toggle between adding and removing the "active" class,
+                to highlight the button that controls the panel */
+                this.classList.toggle("active");
+                console.log("clicked")
+
+                /* Toggle between hiding and showing the active panel */
+                var panel = this.nextElementSibling;
+                if (panel.style.display === "block") {
+                    panel.style.display = "none";
+                } else {
+                    panel.style.display = "block";
+                }
+                if (panel.style.maxHeight) {
+                    panel.style.maxHeight = null;
+                } else {
+                    panel.style.maxHeight = panel.scrollHeight + "px";
+                }
+            });
+        }
+    </script>
+</body>
+
+</html>

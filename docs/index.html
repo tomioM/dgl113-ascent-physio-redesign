@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://kit.fontawesome.com/d1c5e96d9a.js" crossorigin="anonymous"></script>
+    <title>Ascent Physiotherapy - Home</title>
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <div class="header">
+                <a href="index.html" class="header__logo">
+                    <img src="svg/logo.svg" alt="Ascent Physiotherapy Logo">
+                </a>
+                <nav class="nav">
+                    <a class="nav__hamburger-menu" onclick="showNav()"><i
+                            class="fa-solid fa-bars"></i></a>
+                    <ul class="nav__list" id="nav-list">
+                        <li class="nav__item">
+                            <a href="index.html" class="nav__link nav__link--current">Home</a>
+                        </li>
+                        <li class="nav__item">
+                            <a href="" class="nav__link nav__link--disabled">Services</a>
+                        </li>
+                        <li class="nav__item">
+                            <a href="team.html" class="nav__link">Team</a>
+                        </li>
+                        <li class="nav__item">
+                            <a href="faq.html" class="nav__link">FAQ</a>
+                        </li>
+                        <li class="nav__item">
+                            <a href="contact.html" class="nav__link">Contact</a>
+                        </li>
+                        <li class="nav__item">
+                            <a href="https://ascentphysiotherapy.janeapp.com/" target="_blank"
+                                class="nav__link">Book</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section>
+            <div class="hero-statement">
+                <div class="container">
+                    <h1 class="hero-statement__heading">Ascend,<br>Leave your pain behind</h1>
+                    <div class="hero-statement__stripes"></div>
+                </div>
+            </div>
+            <div class="hero-detail">
+                <div class="container">
+                    <p class="hero-detail__paragraph">Ascent Physiotherapy is a full service physiotherapy clinic
+                        located in Comox, BC. We offer physiotherapy, including manual and manipulative therapy, IMS,
+                        acupuncture and exercise prescription to the residents of the Comox Valley and surrounding area.
+                    </p>
+                </div>
+            </div>
+        </section>
+        <section>
+            <div class="container">
+                <div class="services">
+                    <div class="services__decoration-wrap">
+                        <div class="dot-decoration"></div>
+                        <img src="images/carabiner.png" alt="" class="services__carabiner">
+                    </div>
+                    <h2>Our Services</h2>
+                    <ul class="services__list">
+                        <!-- The hrefs are empty as they would link to the services (not built) -->
+                        <li class="services__item">
+                            <h3>Work injuries</h3>
+                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Laboriosam iusto accusamus
+                                voluptas ducimus quas neque asperiores praesentium cum incidunt distinctio.</p>
+                            <a href="" class="button">Learn More</a>
+                        </li>
+                        <li class="services__item services__item--with-margin">
+                            <h3>Accupuncture</h3>
+                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Laboriosam iusto accusamus
+                                voluptas ducimus quas neque asperiores praesentium cum incidunt distinctio.</p>
+                            <a href="" class="button">Learn More</a>
+                        </li>
+                        <li class="services__item">
+                            <h3>Sports Therapy</h3>
+                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Laboriosam iusto accusamus
+                                voluptas ducimus quas neque asperiores praesentium cum incidunt distinctio.</p>
+                            <a href="" class="button">Learn More</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        <section>
+            <div class="team-banner"></div>
+            <div class="container">
+                <div class="member-profile-container member-profile-container--team">
+                    <div class="member-profile">
+                        <div class="member-profile__image">
+                            <div class="dot-decoration dot-decoration--member-profile"></div>
+                            <img src="images/team.jpg" alt="Group portrait of team"
+                                class="member-profile__portrait member-profile__portrait--team">
+                        </div>
+                        <h2 class="member-profile__heading">The Team</h2>
+                        <!-- Content adapted from https://www.cvphysio.ca/our-team.html -->
+                        <p class="member-profile__paragraph">From recurring back pain to post-surgery rehabilitation,
+                            injury treatment and more, the team at Ascent Physiotherapy in Courtenay is committed to
+                            providing high quality care through a complete range of professional rehabilitation and
+                            therapeutic services.<br><br>We practice and maintain a standard of excellence with respect to patient dignity, as well as confidentiality. With no referral necessary, contact our office today to book your next appointment.​</p>
+                        <a href="team.html" class="button">Read Team Profiles</a>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer">
+                <div class="footer__logo-and-disclaimer">
+                    <img class="footer__logo" src="svg/logo.svg" alt="">
+                    <p>This is a fictional website that was designed and coded as an educational exercise. It is not
+                        intended to be seen outside of the class environment. None of the content and images were
+                        approved by the business owner</p>
+                    <a href="https://ascentphysiotherapy.janeapp.com/" class="button">Book an Appointment</a>
+
+                </div>
+                <div class="footer__map">
+                    <!-- Giving the iframe a width property of 100% seems to work, but generates an error using the W3 validator -->
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2582.0239488823695!2d-124.92710994853175!3d49.67268755087754!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x54881315b1258325%3A0xf21aee3501fe1122!2sAscent%20Physiotherapy!5e0!3m2!1sen!2sca!4v1669916452255!5m2!1sen!2sca"
+                        width="100%" height="500" style="border:0;" allowfullscreen="" loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"
+                        title="Map of area surrounding Ascent Physiotherapy"></iframe>
+                </div>
+                <div class="footer__contact-list">
+                    <div class="footer__contact-item">
+                        <h3 class="footer__contact-heading">Phone</h3>
+                        <a href="tel:+1-250-339-1039" class="footer__contact-details">(250) 339-1039</a>
+                    </div>
+                    <div class="footer__contact-item">
+                        <h3 class="footer__contact-heading">Email</h3>
+                        <a href="mailto:admin@ascentphysiotherapy.com"
+                            class="footer__contact-details">admin@ascentphysiotherapy.com</a>
+                    </div>
+                    <div class="footer__contact-item">
+                        <h3 class="footer__contact-heading">Address</h3>
+                        <p class="footer__contact-details">141A Nordin Street<br>Comox, BC, Canada<br>V9M 3N5</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function showNav() {
+            const navList = document.getElementById("nav-list");
+            navList.classList.toggle("nav__list--show-overlay");
+            const header = document.querySelector("header");
+            header.classList.toggle("show-overlay");
+        }
+
+        // Adds a delay to button actions, I felt adding the delay after the fact instead of directly in the HTML was cleaner
+        const buttons = document.querySelectorAll("a.button");
+        buttons.forEach(button => {
+            oldHref = button.getAttribute("href");
+            button.setAttribute("href", `javascript:setTimeout(()=>{window. location = '${oldHref}' },300);`)
+        })
+    </script>
+</body>
+
+</html>
