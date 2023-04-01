@@ -1,0 +1,52 @@
+{
+    "_comment": "1: Manual Therapy, 2: IMS, 3: Acupuncture, 4: TMJ, 5: Sports Therapy, 6: Personal Therapy, 7: Myofascial Therapy || Weight scale 1-10",
+    "questions": [
+      {
+        "question": "What type of pain or discomfort are you experiencing?",
+        "answers": [
+          {"text": "Joint pain", "weight": [1, 0, 0, 0, 0, 0, 0]},
+          {"text": "Muscle pain", "weight": [0, 1, 0, 0, 0, 0, 0]},
+          {"text": "Headaches/migraines", "weight": [0, 0, 1, 0, 0, 0, 1]},
+          {"text": "Jaw Pain", "weight": [0, 0, 0, 1, 0, 0, 0]},
+          {"text": "Sports-related injury", "weight": [0, 0, 0, 0, 1, 1, 0]}
+        ],
+        "conditional": false
+      },
+      {
+        "question": "How severe is your pain or discomfort?",
+        "answers": [
+          {"text": "Mild", "weight": [0, 0, 1, 0, 0, 1, 0]},
+          {"text": "Moderate", "weight": [0, 1, 0, 1, 1, 1, 0]},
+          {"text": "Severe", "weight": [1, 0, 0, 0, 0, 0, 0]}
+        ],
+        "conditional": false
+      },
+      {
+        "question": "How long have you been experiencing the pain or discomfort?",
+        "answers": [
+          {"text": "Less than a week", "weight": [0, 1, 0, 1, 1, 0, 0]},
+          {"text": "1-4 weeks", "weight": [0, 0, 1, 0, 0, 0, 1]},
+          {"text": "More than a month", "weight": [1, 0, 0, 0, 0, 1, 0]}
+        ],
+        "conditional": false
+      },
+      {
+        "question": "Have you received any treatment for your pain or discomfort?",
+        "answers": [
+          {"text": "Yes", "weight": [1, 0, 0, 1, 1, 1, 1]},
+          {"text": "No", "weight": [0, 1, 1, 0, 0, 0, 0]}
+        ],
+        "conditional": false
+      },
+      {
+        "question": "What is your preferred treatment approach?",
+        "answers": [
+          {"text": "Manual therapy and hands-on treatment", "weight": [1, 0, 0, 1, 0, 0, 1]},
+          {"text": "Non-invasive techniques such as acupuncture or IMS", "weight": [0, 1, 1, 0, 0, 0, 0]},
+          {"text": "Exercise-based therapy such as personal training or sports therapy", "weight": [0, 0, 0, 0, 1, 1, 0]},
+          {"text": "Other", "weight": [0, 0, 0, 0, 0, 0, 0]}
+        ],
+        "conditional": false
+      }
+    ]
+  }

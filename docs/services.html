@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://kit.fontawesome.com/d1c5e96d9a.js" crossorigin="anonymous"></script>
+    <title>Ascent Physiotherapy - Contact</title>
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <div class="header">
+                <a href="index.html" class="header__logo">
+                    <img src="svg/logo.svg" alt="">
+                </a>
+                <nav class="nav">
+                    <a class="nav__hamburger-menu" onclick="showNav()"><i
+                            class="fa-solid fa-bars"></i></a>
+                    <ul class="nav__list" id="nav-list">
+                        <li class="nav__item">
+                            <a href="index.html" class="nav__link">Home</a>
+                        </li>
+                        <li class="nav__item">
+                            <a href="" class="nav__link nav__link--disabled">Services</a>
+                        </li>
+                        <li class="nav__item">
+                            <a href="team.html" class="nav__link">Team</a>
+                        </li>
+                        <li class="nav__item">
+                            <a href="faq.html" class="nav__link">FAQ</a>
+                        </li>
+                        <li class="nav__item">
+                            <a href="contact.html" class="nav__link nav__link--current">Contact</a>
+                        </li>
+                        <li class="nav__item">
+                            <a href="https://ascentphysiotherapy.janeapp.com/" target="_blank"
+                                class="nav__link">Book</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section>
+            <div class="hero-statement">
+                <div class="container">
+                    <h1>Services</h1>
+                    <!--  -->
+                    <p class="hero-detail__paragraph">If you have a question, please call us or fill out the form below.
+                        We love questions, don't hesitate to ask us anything. We look forward to hearing from you.</p>
+                </div>
+            </div>
+            <div class="container">
+                <div class="interact-container">
+                    <quiz>
+                        <div id="quiz-questions"></div>
+                        <input id="next" type="submit" value="Next Question" class="button">
+                    </quiz>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer">
+                <div class="footer__logo-and-disclaimer">
+                    <img class="footer__logo" src="svg/logo.svg" alt="">
+                    <p>This is a fictional website that was designed and coded as an educational exercise. It is not
+                        intended to be seen outside of the class environment. None of the content and images were
+                        approved by the business owner</p>
+                    <a href="https://ascentphysiotherapy.janeapp.com/" class="button">Book an Appointment</a>
+                </div>
+                <div class="footer__map">
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2582.0239488823695!2d-124.92710994853175!3d49.67268755087754!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x54881315b1258325%3A0xf21aee3501fe1122!2sAscent%20Physiotherapy!5e0!3m2!1sen!2sca!4v1669916452255!5m2!1sen!2sca"
+                        width="100%" height="500" style="border:0;" allowfullscreen="" loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"
+                        title="Map of area surrounding Ascent Physiotherapy"></iframe>
+                </div>
+                <div class="footer__contact-list">
+                    <div class="footer__contact-item">
+                        <h3 class="footer__contact-heading">Phone</h3>
+                        <a href="tel:+1-250-339-1039" class="footer__contact-details">(250) 339-1039</a>
+                    </div>
+                    <div class="footer__contact-item">
+                        <h3 class="footer__contact-heading">Email</h3>
+                        <a href="mailto:admin@ascentphysiotherapy.com"
+                            class="footer__contact-details">admin@ascentphysiotherapy.com</a>
+                    </div>
+                    <div class="footer__contact-item">
+                        <h3 class="footer__contact-heading">Address</h3>
+                        <p class="footer__contact-details">141A Nordin Street<br>Comox, BC, Canada<br>V9M 3N5</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script type="module" src="app.js"></script>
+</body>
+
+</html>
