@@ -630,6 +630,28 @@ img.member-profile__portrait--team {
     padding-bottom: 30px;
 }
 
+/* || PAGE: SERVICES */
+#quiz-questions label {
+    display: inline-block;
+    width: auto;
+    margin-bottom: 10px;
+    color: var(--main-text-clr);
+    font-family: 'Poppins', Arial, Helvetica, sans-serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    text-transform: capitalize;
+}
+
+#quiz-questions input {
+    width: auto;
+    margin-bottom: 40px;
+    padding: 5px;
+    padding: 0.8rem 1rem;
+    border: 1px solid var(--main-text-clr);
+    border-radius: calc(var(--border-radius) / 2);
+    background-color: transparent;
+    font-size: 1.2rem;
+}
 
 /* || PAGE: CONTACT */
 label {
@@ -651,7 +673,7 @@ textarea {
     margin-bottom: 40px;
     padding: 5px;
     padding: 0.8rem 1rem;
-    border: 2px solid var(--main-text-clr);
+    border: 1px solid var(--main-text-clr);
     border-radius: calc(var(--border-radius) / 2);
     background-color: transparent;
     font-size: 1.2rem;
@@ -660,7 +682,7 @@ textarea {
 input:focus,
 select:focus,
 textarea:focus {
-    border: 2px solid var(--main-accent-clr);
+    border: 1px solid var(--main-accent-clr);
     /* background-color: var(--main-bg-clr); */
 }
 
