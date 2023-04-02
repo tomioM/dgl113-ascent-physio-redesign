@@ -110,6 +110,10 @@ li {
 
 
 /* || BASE STYLES */
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     background-color: var(--main-bg-clr);
     color: var(--main-text-clr);
@@ -631,6 +635,10 @@ img.member-profile__portrait--team {
 }
 
 /* || PAGE: SERVICES */
+#quiz-data {
+    transition: height 300ms ease-in-out;
+}
+
 #quiz-data label {
     display: inline-block;
     width: auto;
@@ -655,6 +663,13 @@ img.member-profile__portrait--team {
 
 #back {
     background-color: var(--main-text-clr);
+    visibility: hidden;
+}
+
+#quiz {
+    transition: height 1s;
+
+
 }
 
 .progress-bar {
@@ -721,6 +736,22 @@ img.member-profile__portrait--team {
     border-radius: calc(var(--border-radius) * 0.7);
     margin-bottom: 20px;
 }
+
+.start-quiz-screen {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(255, 255, 255, 100);
+    z-index: 10;
+    transition: opacity 300ms ease-in-out;
+}
+
 
 
 

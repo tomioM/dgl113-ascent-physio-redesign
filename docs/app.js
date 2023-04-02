@@ -35,7 +35,6 @@ serviceCardContainerElm.innerHTML = serviceCardsHTML;
 // QUIZ LOGIC
 
 let displayAnswers = [];
-let output = [];
 let answerPoints = [ 0, 0, 0, 0, 0, 0, 0 ];
 let currentQuestion = 0;
 let userAnswers = [];
@@ -45,11 +44,15 @@ const quizDataElm = document.getElementById('quiz-data');
 const questionsArr = quizData.questions;
 const nextBtn = document.getElementById('next');
 const backBtn = document.getElementById('back');
+const startQuizBtn = document.getElementById('start-quiz-btn');
+const startQuizScreenElm = document.getElementById('start-quiz-screen');
 const stepTextElm = document.getElementById('step-text');
 const progressLineElm = document.querySelector('.progress-bar-line');
 
 nextBtn.addEventListener("click", nextQuestion);
 backBtn.addEventListener("click", previousQuestion);
+startQuizBtn.addEventListener("click", startQuiz);
+
 
 formElm.addEventListener('submit', e => {
     e.preventDefault();
@@ -63,16 +66,26 @@ quizDataElm.addEventListener('click', event => {
     }
 });
 
+function startQuiz() {
+    startQuizScreenElm.style.opacity = 0;  
+    setTimeout(() => {
+        startQuizScreenElm.style.display = 'none';
+        quizDataElm.style.height = '17rem';
+        updateQuizState();
+    }, 300);
+}
 
-updateQuizState();
+
+
 
 function updateQuizState() {
-    resetQuiz();
+    let output = [];
     if (currentQuestion <= 0) {
         backBtn.style.visibility = 'hidden';
     } else {
         backBtn.style.visibility = 'visible';
     }
+    
 
     stepTextElm.innerHTML = `Step ${currentQuestion + 1} of ${questionsArr.length + 1}`;
     progressLineElm.style.width = `${(currentQuestion / questionsArr.length) * 100}%`;
@@ -94,23 +107,36 @@ function updateQuizState() {
         }
     });
 
-    quizDataElm.innerHTML = output.join('');
+    outputToHTML(output);
+    // quizDataElm.innerHTML = output.join('');
 }
 
 
 
 function nextQuestion() {
     currentQuestion++;
+    resetQuiz();
 
     if (currentQuestion >= questionsArr.length) {
         getQuizResult()
+        nextBtn.style.visibility = 'hidden';
+        backBtn.value = 'Reset Quiz';
     } else {
         updateQuizState();
     }
 }
 
 function previousQuestion() {
-    currentQuestion--;
+    if (currentQuestion >= questionsArr.length) {
+        nextBtn.style.visibility = 'visible';
+        backBtn.value = 'Back';
+        currentQuestion = 0;
+    } else {
+        currentQuestion--;
+    }
+
+    resetQuiz();
+
     updateQuizState();
 }
 
@@ -118,7 +144,6 @@ function previousQuestion() {
 function resetQuiz() {
     quizDataElm.innerHTML = "";
     displayAnswers = [];
-    output = [];
 }
 
 
@@ -131,7 +156,11 @@ function calculatePoints() {
     })
 }
 
+
+
+
 function getQuizResult() {
+    let output = [];
     console.log(userAnswers);
     stepTextElm.innerHTML = `Step ${questionsArr.length + 1} of ${questionsArr.length + 1}`;
     progressLineElm.style.width = '100%';
@@ -148,7 +177,28 @@ function getQuizResult() {
     }
 
     console.log(largestIndex);
-    quizDataElm.innerHTML = `<h3>${quizData.treatments[largestIndex].name}</h3> <p>${quizData.treatments[largestIndex].description}</p>`;
+    output.push(`<h3>${quizData.treatments[largestIndex].name}</h3>`)
+    output.push(`<p>${quizData.treatments[largestIndex].description}</p>`);
+    output.push(`<a href="#${servicesData.services[largestIndex].id}">Scroll to ${quizData.treatments[largestIndex].name}</a>`)
+    outputToHTML(output);
+}
 
-    document.getElementById(largestIndex).scrollIntoView({behavior: 'smooth'});
+function outputToHTML(output) {
+    let delay = 0;
+
+    output.forEach((element, index) => {
+        const div = document.createElement('div');
+        div.innerHTML = element;
+        div.style.opacity = 0;
+        div.style.transition = `opacity ${delay}ms linear`;
+    
+        quizDataElm.appendChild(div);
+    
+        setTimeout(() => {
+        div.style.opacity = 1;
+        }, delay);
+    
+        // Increase speed of transition for each element. I think it looks more pleasing
+        delay += 80 * Math.pow(0.8, index);
+    });
 }
