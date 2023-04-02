@@ -33,10 +33,12 @@ outputToHTML(serviceCardsHTML, serviceCardContainerElm);
 
 
 // QUIZ LOGIC
+// Global Variables
 let answerPoints = [ 0, 0, 0, 0, 0, 0, 0 ];
 let currentQuestion = 0;
 let userAnswers = [];
 
+// get reference to elements
 const formElm = document.getElementById('quiz');
 const quizDataElm = document.getElementById('quiz-data');
 const startQuizScreenElm = document.getElementById('start-quiz-screen');
@@ -48,15 +50,17 @@ const nextBtn = document.getElementById('next');
 const backBtn = document.getElementById('back');
 const startQuizBtn = document.getElementById('start-quiz-btn');
 
+// add event listeners to buttons
 nextBtn.addEventListener("click", nextQuestion);
 backBtn.addEventListener("click", previousQuestion);
 startQuizBtn.addEventListener("click", startQuiz);
 
-
+// prevent default form behavior
 formElm.addEventListener('submit', e => {
     e.preventDefault();
 });
 
+// Add event listener to quiz data container which updates the userAnswer variable to the currently checked radio input
 quizDataElm.addEventListener('click', event => {
     const target = event.target;
     if (target.type === 'radio') {
@@ -65,6 +69,7 @@ quizDataElm.addEventListener('click', event => {
     }
 });
 
+// transitions start quiz screen to hidden and updates the quizzes state.
 function startQuiz() {
     startQuizScreenElm.style.opacity = 0;  
     setTimeout(() => {
@@ -76,18 +81,19 @@ function startQuiz() {
 
 
 
-
+// Updates the quiz state to reflect the various variables that control the quiz
 function updateQuizState() {
     let output = [];
     let currentAnswers = [];
 
+    // If one the first step, hide the back button
     if (currentQuestion <= 0) {
         backBtn.style.visibility = 'hidden';
     } else {
         backBtn.style.visibility = 'visible';
     }
     
-
+    // Update the step text and the progress bar
     stepTextElm.innerHTML = `Step ${currentQuestion + 1} of ${questionsArr.length + 1}`;
     progressLineElm.style.width = `${(currentQuestion / questionsArr.length) * 100}%`;
 
@@ -103,6 +109,7 @@ function updateQuizState() {
         currentAnswers.push(answer.answer);
     });
 
+    // Using template literals push the correct
     currentAnswers.forEach((answer, i) => {
         // if the user selected this answer previously, give that answer the checked attribute
         if (i == userAnswers[currentQuestion]) {
@@ -112,7 +119,6 @@ function updateQuizState() {
         }
     });
 
-    // quizDataElm.innerHTML = output.join('');
     outputToHTML(output, quizDataElm);
 }
 
