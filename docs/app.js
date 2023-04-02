@@ -109,7 +109,7 @@ function updateQuizState() {
         currentAnswers.push(answer.answer);
     });
 
-    // Using template literals push the correct
+    // Using template literals push the available answers onto the output array
     currentAnswers.forEach((answer, i) => {
         // if the user selected this answer previously, give that answer the checked attribute
         if (i == userAnswers[currentQuestion]) {
@@ -123,10 +123,9 @@ function updateQuizState() {
 }
 
 
-
+// Increment current question, get results, update quiz state
 function nextQuestion() {
     currentQuestion++;
-    resetQuiz();
 
     if (currentQuestion >= questionsArr.length) {
         getQuizResult()
@@ -137,7 +136,9 @@ function nextQuestion() {
     }
 }
 
+// Decrement current question, reset, update quiz state
 function previousQuestion() {
+    // If current step is the final then Reset variables to default
     if (currentQuestion >= questionsArr.length) {
         nextBtn.style.visibility = 'visible';
         backBtn.value = 'Back';
@@ -148,32 +149,13 @@ function previousQuestion() {
         currentQuestion--;
     }
 
-    resetQuiz();
-
     updateQuizState();
 }
 
-
-function resetQuiz() {
-    displayAnswers = [];
-}
-
-
-function calculatePoints() {
-    userAnswers.forEach((answer, i) => {
-        const answerPointsArr = questionsArr[i].answers[answer].points;
-        answerPointsArr.forEach((answerPoint, i) => {
-            answerPoints[i] += answerPoint;
-        })
-    })
-}
-
-
-
-
+// Calculate winning service and change quiz to reflect
 function getQuizResult() {
     let output = [];
-    console.log(userAnswers);
+
     stepTextElm.innerHTML = `Step ${questionsArr.length + 1} of ${questionsArr.length + 1}`;
     progressLineElm.style.width = '100%';
 
@@ -183,14 +165,28 @@ function getQuizResult() {
     let largest =  Math.max(...answerPoints);
     let largestIndex = answerPoints.indexOf(largest);
 
+    // Separating the code for each html element is more readable and looks nice when put through the outputToHTML method
     output.push(`<h3>${quizData.treatments[largestIndex].name}</h3>`)
     output.push(`<p>${quizData.treatments[largestIndex].description}</p>`);
     output.push(`<a href="#${servicesData.services[largestIndex].id}">Scroll to ${quizData.treatments[largestIndex].name}</a>`)
+
     outputToHTML(output, quizDataElm);
 }
 
-function outputToHTML(output, targetElem) {
-    removeAllChildNodes(targetElem);
+// Calculate the points based on the userAnswers array
+function calculatePoints() {
+    userAnswers.forEach((answer, i) => {
+        const answerPointsArr = questionsArr[i].answers[answer].points;
+        answerPointsArr.forEach((answerPoint, i) => {
+            answerPoints[i] += answerPoint;
+        })
+    })
+}
+
+// Given the an array of strings containing code for html elements and a reference to a parent in which to append the output. Each element of the output array is added consecutively with a delay and transition (because it looks good)
+function outputToHTML(output, parentElem) {
+    // Remove children in parent before adding the new elements
+    removeAllChildNodes(parentElem);
     let delay = 0;
 
     output.forEach((element, index) => {
@@ -199,7 +195,7 @@ function outputToHTML(output, targetElem) {
         div.style.opacity = 0;
         div.style.transition = `opacity ${delay}ms linear`;
     
-        targetElem.appendChild(div);
+        parentElem.appendChild(div);
     
         setTimeout(() => {
         div.style.opacity = 1;
@@ -210,6 +206,7 @@ function outputToHTML(output, targetElem) {
     });
 }
 
+// Removes all child nodes of a parent
 function removeAllChildNodes(parent) {
     while (parent.firstChild) {
         parent.removeChild(parent.firstChild);
