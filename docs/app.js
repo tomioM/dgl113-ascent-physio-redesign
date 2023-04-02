@@ -6,10 +6,10 @@ import servicesData from "./services.json" assert { type: "json" };
 
 console.log(servicesData)
 const services = servicesData.services;
-let serviceCardsHTML = '';
+let serviceCardsHTML = [];
 
 services.forEach(service => {
-  serviceCardsHTML += `
+  serviceCardsHTML.push(`
     <div class="service-card" id="${service.id}">
         <div>
             <img class="service-card__image" src="${service.image}" alt="${service.name}">
@@ -19,35 +19,34 @@ services.forEach(service => {
         </div>
         <button class="button button--add">Add to calculator</button>
     </div>
-  `;
+  `);
 });
 
 console.log(serviceCardsHTML);
 
 const serviceCardContainerElm = document.getElementById('service-card-container');
 console.log(serviceCardContainerElm);
-serviceCardContainerElm.innerHTML = serviceCardsHTML;
+outputToHTML(serviceCardsHTML, serviceCardContainerElm);
 
 
 
 
 
 // QUIZ LOGIC
-
-let displayAnswers = [];
 let answerPoints = [ 0, 0, 0, 0, 0, 0, 0 ];
 let currentQuestion = 0;
 let userAnswers = [];
 
 const formElm = document.getElementById('quiz');
 const quizDataElm = document.getElementById('quiz-data');
-const questionsArr = quizData.questions;
-const nextBtn = document.getElementById('next');
-const backBtn = document.getElementById('back');
-const startQuizBtn = document.getElementById('start-quiz-btn');
 const startQuizScreenElm = document.getElementById('start-quiz-screen');
 const stepTextElm = document.getElementById('step-text');
 const progressLineElm = document.querySelector('.progress-bar-line');
+
+// get reference to button elements
+const nextBtn = document.getElementById('next');
+const backBtn = document.getElementById('back');
+const startQuizBtn = document.getElementById('start-quiz-btn');
 
 nextBtn.addEventListener("click", nextQuestion);
 backBtn.addEventListener("click", previousQuestion);
@@ -80,6 +79,8 @@ function startQuiz() {
 
 function updateQuizState() {
     let output = [];
+    let currentAnswers = [];
+
     if (currentQuestion <= 0) {
         backBtn.style.visibility = 'hidden';
     } else {
@@ -90,15 +91,19 @@ function updateQuizState() {
     stepTextElm.innerHTML = `Step ${currentQuestion + 1} of ${questionsArr.length + 1}`;
     progressLineElm.style.width = `${(currentQuestion / questionsArr.length) * 100}%`;
 
-    const questionObj = questionsArr[currentQuestion];
+    // instantiate the question variable with the current question object
+    const question = quizData.questions[currentQuestion];
 
-    questionObj.answers.forEach(answerObj => {
-        displayAnswers.push(answerObj.answer);
+
+    // Pushes the question string onto the output array
+    output.push(`<h3>${question.question}</h3>`);
+
+    // Pushes the answer string onto the currentAnswers array
+    question.answers.forEach(answer => {
+        currentAnswers.push(answer.answer);
     });
 
-    output.push(`<h3>${questionObj.question}</h3>`);
-
-    displayAnswers.forEach((answer, i) => {
+    currentAnswers.forEach((answer, i) => {
         // if the user selected this answer previously, give that answer the checked attribute
         if (i == userAnswers[currentQuestion]) {
             output.push(`<input type="radio" id="${i}" name="answer" value="${i}" checked><label for="${i}">${answer}</label><br>`);
@@ -107,8 +112,8 @@ function updateQuizState() {
         }
     });
 
-    outputToHTML(output);
     // quizDataElm.innerHTML = output.join('');
+    outputToHTML(output, quizDataElm);
 }
 
 
@@ -130,7 +135,9 @@ function previousQuestion() {
     if (currentQuestion >= questionsArr.length) {
         nextBtn.style.visibility = 'visible';
         backBtn.value = 'Back';
+        answerPoints = [ 0, 0, 0, 0, 0, 0, 0 ];
         currentQuestion = 0;
+        userAnswers = [];
     } else {
         currentQuestion--;
     }
@@ -142,7 +149,6 @@ function previousQuestion() {
 
 
 function resetQuiz() {
-    quizDataElm.innerHTML = "";
     displayAnswers = [];
 }
 
@@ -177,7 +183,8 @@ function getQuizResult() {
     outputToHTML(output, quizDataElm);
 }
 
-function outputToHTML(output) {
+function outputToHTML(output, targetElem) {
+    removeAllChildNodes(targetElem);
     let delay = 0;
 
     output.forEach((element, index) => {
@@ -186,7 +193,7 @@ function outputToHTML(output) {
         div.style.opacity = 0;
         div.style.transition = `opacity ${delay}ms linear`;
     
-        quizDataElm.appendChild(div);
+        targetElem.appendChild(div);
     
         setTimeout(() => {
         div.style.opacity = 1;
@@ -195,4 +202,10 @@ function outputToHTML(output) {
         // Increase speed of transition for each element. I think it looks more pleasing
         delay += 80 * Math.pow(0.8, index);
     });
+}
+
+function removeAllChildNodes(parent) {
+    while (parent.firstChild) {
+        parent.removeChild(parent.firstChild);
+    }
 }
