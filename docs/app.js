@@ -167,20 +167,14 @@ function getQuizResult() {
 
     calculatePoints();
 
-    let largest = answerPoints[0];
-    let largestIndex = 0;
-    for (let i = 0; i < answerPoints.length; i++) {
-        if (largest < answerPoints[i]) {
-            largest = answerPoints[i];
-            largestIndex = i;
-        }
-    }
+    // "..." Spreads the answerPoints array into separate arguments which the Math.max function requires
+    let largest =  Math.max(...answerPoints);
+    let largestIndex = answerPoints.indexOf(largest);
 
-    console.log(largestIndex);
     output.push(`<h3>${quizData.treatments[largestIndex].name}</h3>`)
     output.push(`<p>${quizData.treatments[largestIndex].description}</p>`);
     output.push(`<a href="#${servicesData.services[largestIndex].id}">Scroll to ${quizData.treatments[largestIndex].name}</a>`)
-    outputToHTML(output);
+    outputToHTML(output, quizDataElm);
 }
 
 function outputToHTML(output) {
