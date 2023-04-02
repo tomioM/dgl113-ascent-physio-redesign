@@ -33,10 +33,12 @@ outputToHTML(serviceCardsHTML, serviceCardContainerElm);
 
 
 // QUIZ LOGIC
+
 // Global Variables
 let answerPoints = [ 0, 0, 0, 0, 0, 0, 0 ];
 let currentQuestion = 0;
 let userAnswers = [];
+const totalQuestions = quizData.questions.length;
 
 // get reference to elements
 const formElm = document.getElementById('quiz');
@@ -69,17 +71,19 @@ quizDataElm.addEventListener('click', event => {
     }
 });
 
-// transitions start quiz screen to hidden and updates the quizzes state.
+
+
+// transitions away from start quiz screen and updates the quizzes state.
 function startQuiz() {
     startQuizScreenElm.style.opacity = 0;  
+    formElm.style.height = '520px';
+
     setTimeout(() => {
         startQuizScreenElm.style.display = 'none';
-        quizDataElm.style.height = '17rem';
+        formElm.style.overflow = 'auto';
         updateQuizState();
     }, 300);
 }
-
-
 
 // Updates the quiz state to reflect the various variables that control the quiz
 function updateQuizState() {
@@ -94,22 +98,21 @@ function updateQuizState() {
     }
     
     // Update the step text and the progress bar
-    stepTextElm.innerHTML = `Step ${currentQuestion + 1} of ${questionsArr.length + 1}`;
-    progressLineElm.style.width = `${(currentQuestion / questionsArr.length) * 100}%`;
+    stepTextElm.innerHTML = `Step ${currentQuestion + 1} of ${totalQuestions + 1}`;
+    progressLineElm.style.width = `${(currentQuestion / totalQuestions) * 100}%`;
 
     // instantiate the question variable with the current question object
     const question = quizData.questions[currentQuestion];
 
-
-    // Pushes the question string onto the output array
+    // Push the question string onto the output array
     output.push(`<h3>${question.question}</h3>`);
 
-    // Pushes the answer string onto the currentAnswers array
+    // Pushes the answer strings onto the currentAnswers array
     question.answers.forEach(answer => {
         currentAnswers.push(answer.answer);
     });
 
-    // Using template literals push the available answers onto the output array
+    // Push the HTML code for elements using the available answer data onto the output array
     currentAnswers.forEach((answer, i) => {
         // if the user selected this answer previously, give that answer the checked attribute
         if (i == userAnswers[currentQuestion]) {
@@ -122,12 +125,11 @@ function updateQuizState() {
     outputToHTML(output, quizDataElm);
 }
 
-
 // Increment current question, get results, update quiz state
 function nextQuestion() {
     currentQuestion++;
 
-    if (currentQuestion >= questionsArr.length) {
+    if (currentQuestion >= totalQuestions) {
         getQuizResult()
         nextBtn.style.visibility = 'hidden';
         backBtn.value = 'Reset Quiz';
@@ -139,9 +141,10 @@ function nextQuestion() {
 // Decrement current question, reset, update quiz state
 function previousQuestion() {
     // If current step is the final then Reset variables to default
-    if (currentQuestion >= questionsArr.length) {
+    if (currentQuestion >= totalQuestions) {
         nextBtn.style.visibility = 'visible';
         backBtn.value = 'Back';
+
         answerPoints = [ 0, 0, 0, 0, 0, 0, 0 ];
         currentQuestion = 0;
         userAnswers = [];
@@ -152,11 +155,11 @@ function previousQuestion() {
     updateQuizState();
 }
 
-// Calculate winning service and change quiz to reflect
+// Calculate winning diagnosis and change quiz to reflect
 function getQuizResult() {
     let output = [];
 
-    stepTextElm.innerHTML = `Step ${questionsArr.length + 1} of ${questionsArr.length + 1}`;
+    stepTextElm.innerHTML = `Step ${totalQuestions + 1} of ${totalQuestions + 1}`;
     progressLineElm.style.width = '100%';
 
     calculatePoints();
@@ -176,7 +179,7 @@ function getQuizResult() {
 // Calculate the points based on the userAnswers array
 function calculatePoints() {
     userAnswers.forEach((answer, i) => {
-        const answerPointsArr = questionsArr[i].answers[answer].points;
+        const answerPointsArr = quizData.questions[i].answers[answer].points;
         answerPointsArr.forEach((answerPoint, i) => {
             answerPoints[i] += answerPoint;
         })
