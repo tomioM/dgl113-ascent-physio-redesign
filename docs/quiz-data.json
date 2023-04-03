@@ -388,7 +388,7 @@
     },
     {
       "id": 9,
-      "question": "How severe is your symptom(s)?",
+      "question": "How severe is your symptom?",
       "answers": [
         {
           "id": 1,

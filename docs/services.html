@@ -25,7 +25,7 @@
                             <a href="index.html" class="nav__link">Home</a>
                         </li>
                         <li class="nav__item">
-                            <a href="services.html" class="nav__link">Services</a>
+                            <a href="services.html" class="nav__link nav__link--current">Services</a>
                         </li>
                         <li class="nav__item">
                             <a href="team.html" class="nav__link">Team</a>
@@ -34,7 +34,7 @@
                             <a href="faq.html" class="nav__link">FAQ</a>
                         </li>
                         <li class="nav__item">
-                            <a href="contact.html" class="nav__link nav__link--current">Contact</a>
+                            <a href="contact.html" class="nav__link">Contact</a>
                         </li>
                         <li class="nav__item">
                             <a href="https://ascentphysiotherapy.janeapp.com/" target="_blank"
@@ -51,12 +51,11 @@
             <div class="hero-statement">
                 <div class="container">
                     <h1>Services</h1>
-                    <!--  -->
                     <p class="hero-detail__paragraph">If you have a question, please call us or fill out the form below.
                         We love questions, don't hesitate to ask us anything. We look forward to hearing from you.</p>
                 </div>
             </div>
-            <div class="container container__quiz">
+            <div class="container">
                 <div class="interact-container">
                     <div class="start-quiz-screen" id="start-quiz-screen"><button class="button" id="start-quiz-btn">Start Diagnosis Quiz</button></div>
                     <form id="quiz">
@@ -75,30 +74,31 @@
         </section>
         <section>
             <div class="container">
-                <div class="service-select__grid-container">
-                    <div class="service-select__card-gallery" id="service-card-container">
-                        <div class="service-card">
-                            <img class="service-card__image" src="" alt="">
-                            <h3>Manual Therapy</h3>
-                            <p>$100</p>
-                            <p>Manual therapy is a hands-on treatment that involves mobilizing or manipulating joints and soft tissues to help reduce pain, increase range of motion, and improve function.</p>
-                        </div>
-                        <div class="service-card">
-                            <img class="service-card__image" src="" alt="">
-                            <h3>Manual Therapy</h3>
-                            <p>Manual therapy is a hands-on treatment that involves mobilizing or manipulating joints and soft tissues to help reduce pain, increase range of motion, and improve function.</p>
-                        </div>
-                        <div class="service-card">
-                            <img class="service-card__image" src="" alt="">
-                            <h3>Manual Therapy</h3>
-                            <p>Manual therapy is a hands-on treatment that involves mobilizing or manipulating joints and soft tissues to help reduce pain, increase range of motion, and improve function.</p>
-                        </div>
+                <!-- not a huge fan of this -->
+                <div class="interact-extended-container">
+                    <div class="filter-chips">
+                        <button data-filter="all" class="filter-chips__button filter-chips__button--active">Show all</button>
+                        <button data-filter="muscle" class="filter-chips__button">Muscle</button>
+                        <button data-filter="joint" class="filter-chips__button">Joint</button>
                     </div>
-                    <div class="service-select__invoice-summary-container">
-                        <div class="invoice-summary">
-                            <p>Subtotal: $325</p>
-                            <p>Tax: $32.50</p>
-                            <p><strong>Total: $357.50</strong></p>
+                    <div class="service-select__grid-container">
+                        <div class="service-select__card-gallery" id="service-card-container">
+<!-- Service cards go here -->
+                        </div>
+                        <div class="service-select__invoice-summary-container">
+                            <div class="invoice-summary">
+                                <div id="invoice-data"></div>
+                                <hr>
+                                <span class="invoice-name-price">
+                                    <p>GST (5%)</p><p id="gst"></p>
+                                </span>
+                                <span class="invoice-name-price">
+                                    <p>PST (7%)</p><p id="pst"></p>
+                                </span>
+                                <span class="invoice-name-price">
+                                    <p><strong>Total</strong></p><p id="total"></p>
+                                </span>
+                            </div>
                         </div>
                     </div>
                 </div>

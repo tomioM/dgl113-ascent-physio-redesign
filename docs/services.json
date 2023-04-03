@@ -3,51 +3,65 @@
     {
       "id": "manual-therapy",
       "name": "Manual Therapy",
+      "tags": [ "joint" ],
       "description": "Manual therapy is a hands-on treatment that involves mobilizing or manipulating joints and soft tissues to help reduce pain, increase range of motion, and improve function.",
-      "price": 100,
-      "image": ""
+      "price": 115,
+      "image": "",
+      "index": 0
     },
     {
       "id": "ims",
       "name": "IMS",
+      "tags": [ "muscle" ],
       "description": "Intramuscular stimulation (IMS) is a treatment that involves the insertion of fine needles into the muscles to help relieve pain and improve function. IMS is often used to treat chronic pain and musculoskeletal conditions.",
-      "price": 100,
-      "image": ""
+      "price": 195,
+      "image": "",
+      "index": 1
     },
     {
       "id": "acupuncture",
       "name": "Acupuncture",
+      "tags": [ "muscle", "joint" ],
       "description": "Acupuncture is a treatment that involves the insertion of fine needles into specific points on the body to help relieve pain, reduce inflammation, and improve overall health and well-being.",
-      "price": 100,
-      "image": ""
+      "price": 140,
+      "image": "",
+      "index": 2
     },
     {
       "id": "tmj",
       "name": "TMJ",
+      "tags": [ "joint" ],
       "description": "TMJ treatment is a type of therapy that focuses on relieving pain and improving function in the temporomandibular joint (TMJ). TMJ treatment may involve a combination of manual therapy, acupuncture, and other techniques.",
-      "price": 100,
-      "image": ""
+      "price": 155,
+      "image": "",
+      "index": 3
     },
     {
       "id": "sports-therapy",
       "name": "Sports Therapy",
+      "tags": [ "muscle", "joint" ],
       "description": "Sports therapy is a type of treatment that is designed to help athletes and active individuals recover from injuries, improve performance, and prevent future injuries. Sports therapy may involve a combination of manual therapy, exercise, and other techniques.",
-      "price": 100,
-      "image": ""
+      "price": 105,
+      "image": "",
+      "index": 4
     },
     {
       "id": "personal-therapy",
       "name": "Personal Therapy",
+      "tags": [ "muscle", "joint" ],
       "description": "Personal therapy is a type of treatment that is designed to help individuals improve their overall health and well-being. Personal therapy may involve a combination of manual therapy, exercise, nutrition counseling, and other techniques.",
-      "price": 100,
-      "image": ""
+      "price": 110,
+      "image": "",
+      "index": 5
     },
     {
       "id": "myofascial-therapy",
       "name": "Myofascial Therapy",
+      "tags": [ "muscle" ],
       "description": "Myofascial therapy is a type of treatment that focuses on releasing tension and pain in the myofascial tissues, which are the connective tissues that surround and support the muscles. Myofascial therapy may involve a combination of manual therapy, exercise, and other techniques.",
       "price": 100,
-      "image": ""
+      "image": "",
+      "index": 6
     }
   ]
 }

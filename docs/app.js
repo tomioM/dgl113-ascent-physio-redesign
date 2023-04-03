@@ -4,29 +4,137 @@ import quizData from "./quiz-data.json" assert { type: "json" };
 import servicesData from "./services.json" assert { type: "json" };
 
 
-console.log(servicesData)
+
+// SERVICE FEATURES 
+const invoiceDataElm = document.getElementById('invoice-data')
+const gstInvoiceElm = document.getElementById('gst');
+const pstInvoiceElm = document.getElementById('pst')
+const totalInvoiceElm = document.getElementById('total');
+
+
 const services = servicesData.services;
-let serviceCardsHTML = [];
+const addBtnPhrase = 'Add to invoice';
+const removeBtnPhrase = 'Remove from invoice';
 
-services.forEach(service => {
-  serviceCardsHTML.push(`
-    <div class="service-card" id="${service.id}">
-        <div>
-            <img class="service-card__image" src="${service.image}" alt="${service.name}">
-            <h3>${service.name}</h3>
-            <p>Price: $${service.price}</p>
-            <p>${service.description}</p>
-        </div>
-        <button class="button button--add">Add to calculator</button>
-    </div>
-  `);
-});
+let servicesInCart = [];
 
-console.log(serviceCardsHTML);
 
+function manageAddBtnClick(e) {
+    const index = e.target.getAttribute('data-index');
+    if (e.target.classList.contains('button--remove')) {
+        e.target.innerHTML = addBtnPhrase;
+        removeServiceFromCalculator(index);
+    } else {
+        e.target.innerHTML = removeBtnPhrase;
+        addServiceToCalculator(index);
+    }
+    e.target.classList.toggle('button--remove')
+}
+
+
+function addServiceToCalculator(index) {
+    servicesInCart.unshift({ name: services[index].name, price: services[index].price, index: index });
+    // Use this structure for other thing as well
+    outputToHTML(buildInvoiceItems(), invoiceDataElm);
+}
+
+function removeServiceFromCalculator(index) {
+    servicesInCart = servicesInCart.filter(item => {
+        return item.index !== index;
+    });
+
+    outputToHTML(buildInvoiceItems(), invoiceDataElm);
+}
+
+function buildInvoiceItems() {
+    updateInvoice()
+    let output = [];
+
+    servicesInCart.forEach(item => {
+        output.push(`<div class="invoice-name-price">${item.name}<p></p><p>${item.price}</p></div>`);
+    })
+
+    return output;
+}
+
+function updateInvoice() {
+    let total = 0;
+    for (const item of servicesInCart) {
+        total += item.price;
+    }
+
+
+    const gst = roundMoney(total * 0.05);
+    const pst = roundMoney(total * 0.07);
+    const taxTotal = roundMoney(total + gst + pst);
+
+    totalInvoiceElm.innerHTML = taxTotal;
+    gstInvoiceElm.innerHTML = gst;
+    pstInvoiceElm.innerHTML = pst;
+}
+
+function roundMoney(num) {
+    return Math.ceil(num * 100) / 100;
+}
+
+// FILTER BUTTONS
+const filterBtns = document.querySelectorAll('button.filter-chips__button');
 const serviceCardContainerElm = document.getElementById('service-card-container');
-console.log(serviceCardContainerElm);
-outputToHTML(serviceCardsHTML, serviceCardContainerElm);
+
+// Initial cards
+outputToHTML(buildServiceCards(services), serviceCardContainerElm);
+addlistenerToBtns();
+
+filterBtns.forEach(filterBtn => {
+    filterBtn.addEventListener('click', manageFilterBtnClick);
+})
+
+function manageFilterBtnClick(e) {
+    const activeBtn = document.querySelector('.filter-chips__button--active')
+    activeBtn.classList.remove('filter-chips__button--active')
+    e.target.classList.add('filter-chips__button--active');
+
+    const filterStr = e.target.getAttribute('data-filter');
+    if (filterStr == 'all') {
+        outputToHTML(buildServiceCards(services), serviceCardContainerElm);
+        addlistenerToBtns();
+    } else {
+        const filteredServices = services.filter(service => service.tags.includes(filterStr));
+        outputToHTML(buildServiceCards(filteredServices), serviceCardContainerElm);
+        addlistenerToBtns();
+    }
+}
+
+function buildServiceCards(filteredServices) {
+    let output = [];
+
+    filteredServices.forEach(service => {
+        const isInCart = servicesInCart.find(serviceInCart => {
+            return serviceInCart.index == service.index;
+        });
+
+        output.push(`
+            <div class="service-card" id="${service.id}">
+                <div>
+                    <img class="service-card__image" src="${service.image}" alt="${service.name}">
+                    <p class="service-card__price">Price: $${service.price}</p>
+                    <h3>${service.name}</h3>
+                    <p>${service.description}</p>
+                </div>
+                <button class="button button--invoice ${isInCart ? 'button--remove' : ''}" data-index="${service.index}">${isInCart ? removeBtnPhrase : addBtnPhrase}</button>
+            </div>
+        `);
+    });    
+
+    return output;
+}
+
+function addlistenerToBtns() {
+    const addBtns = document.querySelectorAll('.button--invoice');
+    addBtns.forEach(addBtn => {
+        addBtn.addEventListener('click', manageAddBtnClick);
+    })
+}
 
 
 
@@ -40,24 +148,24 @@ let currentQuestion = 0;
 let userAnswers = [];
 const totalQuestions = quizData.questions.length;
 
-// get reference to elements
+// Get reference to elements
 const formElm = document.getElementById('quiz');
 const quizDataElm = document.getElementById('quiz-data');
 const startQuizScreenElm = document.getElementById('start-quiz-screen');
 const stepTextElm = document.getElementById('step-text');
 const progressLineElm = document.querySelector('.progress-bar-line');
 
-// get reference to button elements
+// Get reference to button elements
 const nextBtn = document.getElementById('next');
 const backBtn = document.getElementById('back');
 const startQuizBtn = document.getElementById('start-quiz-btn');
 
-// add event listeners to buttons
+// Add event listeners to buttons
 nextBtn.addEventListener("click", nextQuestion);
 backBtn.addEventListener("click", previousQuestion);
 startQuizBtn.addEventListener("click", startQuiz);
 
-// prevent default form behavior
+// Prevent default form behavior
 formElm.addEventListener('submit', e => {
     e.preventDefault();
 });
@@ -72,8 +180,7 @@ quizDataElm.addEventListener('click', event => {
 });
 
 
-
-// transitions away from start quiz screen and updates the quizzes state.
+// Transitions away from start quiz screen and updates the quizzes state.
 function startQuiz() {
     startQuizScreenElm.style.opacity = 0;  
     formElm.style.height = '520px';
@@ -101,7 +208,7 @@ function updateQuizState() {
     stepTextElm.innerHTML = `Step ${currentQuestion + 1} of ${totalQuestions + 1}`;
     progressLineElm.style.width = `${(currentQuestion / totalQuestions) * 100}%`;
 
-    // instantiate the question variable with the current question object
+    // Instantiate the question variable with the current question object
     const question = quizData.questions[currentQuestion];
 
     // Push the question string onto the output array
@@ -114,7 +221,7 @@ function updateQuizState() {
 
     // Push the HTML code for elements using the available answer data onto the output array
     currentAnswers.forEach((answer, i) => {
-        // if the user selected this answer previously, give that answer the checked attribute
+        // If the user selected this answer previously, give that answer the checked attribute
         if (i == userAnswers[currentQuestion]) {
             output.push(`<input type="radio" id="${i}" name="answer" value="${i}" checked><label for="${i}">${answer}</label><br>`);
         } else {
@@ -190,7 +297,7 @@ function calculatePoints() {
 function outputToHTML(output, parentElem) {
     // Remove children in parent before adding the new elements
     removeAllChildNodes(parentElem);
-    let delay = 0;
+    let delay = 150;
 
     output.forEach((element, index) => {
         const div = document.createElement('div');
