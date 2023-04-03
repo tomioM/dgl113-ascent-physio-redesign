@@ -5,22 +5,27 @@ import servicesData from "./services.json" assert { type: "json" };
 
 
 
-// SERVICE FEATURES 
+// INVOICE SUMMARY
+
+// Global Variables
+const services = servicesData.services;
+const addBtnPhrase = 'Add to invoice';
+const removeBtnPhrase = 'Remove from invoice';
+let servicesInCart = [];
+
+// Element References
 const invoiceDataElm = document.getElementById('invoice-data')
 const gstInvoiceElm = document.getElementById('gst');
 const pstInvoiceElm = document.getElementById('pst')
 const totalInvoiceElm = document.getElementById('total');
 
 
-const services = servicesData.services;
-const addBtnPhrase = 'Add to invoice';
-const removeBtnPhrase = 'Remove from invoice';
-
-let servicesInCart = [];
-
-
-function manageAddBtnClick(e) {
+function manageInvoiceBtnClick(e) {
+    /* Gets the string contained in the clicked button elements data-index attribute. 
+    This is the index of the associated service in the services array */
     const index = e.target.getAttribute('data-index');
+
+    // Take the action indicated by the button state then toggles the content of the the button between two phrases to reflect the action it will take next
     if (e.target.classList.contains('button--remove')) {
         e.target.innerHTML = addBtnPhrase;
         removeServiceFromCalculator(index);
@@ -28,17 +33,20 @@ function manageAddBtnClick(e) {
         e.target.innerHTML = removeBtnPhrase;
         addServiceToCalculator(index);
     }
+
+    // Toggle the "button-remove" class. (less code then adding / removing in the above step)
     e.target.classList.toggle('button--remove')
 }
 
 
 function addServiceToCalculator(index) {
+    // Add the relevant information of the service in which the button was clicked on to the beginning of the "servicesInCart" Array
     servicesInCart.unshift({ name: services[index].name, price: services[index].price, index: index });
-    // Use this structure for other thing as well
     outputToHTML(buildInvoiceItems(), invoiceDataElm);
 }
 
 function removeServiceFromCalculator(index) {
+    // Remove the serviceInCart with the index of the service in which the button was clicked
     servicesInCart = servicesInCart.filter(item => {
         return item.index !== index;
     });
@@ -47,8 +55,9 @@ function removeServiceFromCalculator(index) {
 }
 
 function buildInvoiceItems() {
-    updateInvoice()
     let output = [];
+
+    updateInvoiceTotals()
 
     servicesInCart.forEach(item => {
         output.push(`<div class="invoice-name-price">${item.name}<p></p><p>${item.price}</p></div>`);
@@ -57,12 +66,11 @@ function buildInvoiceItems() {
     return output;
 }
 
-function updateInvoice() {
+function updateInvoiceTotals() {
     let total = 0;
     for (const item of servicesInCart) {
         total += item.price;
     }
-
 
     const gst = roundMoney(total * 0.05);
     const pst = roundMoney(total * 0.07);
@@ -77,7 +85,10 @@ function roundMoney(num) {
     return Math.ceil(num * 100) / 100;
 }
 
-// FILTER BUTTONS
+
+// FILTERING
+
+// Element References
 const filterBtns = document.querySelectorAll('button.filter-chips__button');
 const serviceCardContainerElm = document.getElementById('service-card-container');
 
@@ -129,18 +140,8 @@ function buildServiceCards(filteredServices) {
     return output;
 }
 
-function addlistenerToBtns() {
-    const addBtns = document.querySelectorAll('.button--invoice');
-    addBtns.forEach(addBtn => {
-        addBtn.addEventListener('click', manageAddBtnClick);
-    })
-}
 
-
-
-
-
-// QUIZ LOGIC
+// QUIZ
 
 // Global Variables
 let answerPoints = [ 0, 0, 0, 0, 0, 0, 0 ];
@@ -148,14 +149,14 @@ let currentQuestion = 0;
 let userAnswers = [];
 const totalQuestions = quizData.questions.length;
 
-// Get reference to elements
+// Element References
 const formElm = document.getElementById('quiz');
 const quizDataElm = document.getElementById('quiz-data');
 const startQuizScreenElm = document.getElementById('start-quiz-screen');
 const stepTextElm = document.getElementById('step-text');
 const progressLineElm = document.querySelector('.progress-bar-line');
 
-// Get reference to button elements
+// Button Element References
 const nextBtn = document.getElementById('next');
 const backBtn = document.getElementById('back');
 const startQuizBtn = document.getElementById('start-quiz-btn');
@@ -188,12 +189,42 @@ function startQuiz() {
     setTimeout(() => {
         startQuizScreenElm.style.display = 'none';
         formElm.style.overflow = 'auto';
-        updateQuizState();
+        buildQuiz();
     }, 300);
 }
 
-// Updates the quiz state to reflect the various variables that control the quiz
-function updateQuizState() {
+// Increment current question, get results, update quiz state
+function nextQuestion() {
+    currentQuestion++;
+
+    if (currentQuestion >= totalQuestions) {
+        outputToHTML(buildQuizResult(), quizDataElm);
+        nextBtn.style.visibility = 'hidden';
+        backBtn.value = 'Reset Quiz';
+    } else {
+        outputToHTML(buildQuiz(), quizDataElm);
+    }
+}
+
+// Decrement current question, reset, update quiz state
+function previousQuestion() {
+    // If current step is the final then Reset variables to default
+    if (currentQuestion >= totalQuestions) {
+        nextBtn.style.visibility = 'visible';
+        backBtn.value = 'Back';
+
+        answerPoints = [ 0, 0, 0, 0, 0, 0, 0 ];
+        currentQuestion = 0;
+        userAnswers = [];
+    } else {
+        currentQuestion--;
+    }
+
+    outputToHTML(buildQuiz(), quizDataElm);
+}
+
+// Builds html to reflect the various variables that control the quiz
+function buildQuiz() {
     let output = [];
     let currentAnswers = [];
 
@@ -229,68 +260,38 @@ function updateQuizState() {
         }
     });
 
-    outputToHTML(output, quizDataElm);
-}
-
-// Increment current question, get results, update quiz state
-function nextQuestion() {
-    currentQuestion++;
-
-    if (currentQuestion >= totalQuestions) {
-        getQuizResult()
-        nextBtn.style.visibility = 'hidden';
-        backBtn.value = 'Reset Quiz';
-    } else {
-        updateQuizState();
-    }
-}
-
-// Decrement current question, reset, update quiz state
-function previousQuestion() {
-    // If current step is the final then Reset variables to default
-    if (currentQuestion >= totalQuestions) {
-        nextBtn.style.visibility = 'visible';
-        backBtn.value = 'Back';
-
-        answerPoints = [ 0, 0, 0, 0, 0, 0, 0 ];
-        currentQuestion = 0;
-        userAnswers = [];
-    } else {
-        currentQuestion--;
-    }
-
-    updateQuizState();
+    return output;
 }
 
 // Calculate winning diagnosis and change quiz to reflect
-function getQuizResult() {
+function buildQuizResult() {
     let output = [];
 
     stepTextElm.innerHTML = `Step ${totalQuestions + 1} of ${totalQuestions + 1}`;
     progressLineElm.style.width = '100%';
 
-    calculatePoints();
-
-    // "..." Spreads the answerPoints array into separate arguments which the Math.max function requires
-    let largest =  Math.max(...answerPoints);
-    let largestIndex = answerPoints.indexOf(largest);
+    const winningServiceIndex = getWinningIndex();
 
     // Separating the code for each html element is more readable and looks nice when put through the outputToHTML method
-    output.push(`<h3>${quizData.treatments[largestIndex].name}</h3>`)
-    output.push(`<p>${quizData.treatments[largestIndex].description}</p>`);
-    output.push(`<a href="#${servicesData.services[largestIndex].id}">Scroll to ${quizData.treatments[largestIndex].name}</a>`)
+    output.push(`<h3>${quizData.treatments[winningServiceIndex].name}</h3>`)
+    output.push(`<p>${quizData.treatments[winningServiceIndex].description}</p>`);
+    output.push(`<a href="#${servicesData.services[winningServiceIndex].id}">Scroll to ${quizData.treatments[largestIndex].name}</a>`)
 
-    outputToHTML(output, quizDataElm);
+    return output;
 }
 
 // Calculate the points based on the userAnswers array
-function calculatePoints() {
+function getWinningIndex() {
     userAnswers.forEach((answer, i) => {
         const answerPointsArr = quizData.questions[i].answers[answer].points;
         answerPointsArr.forEach((answerPoint, i) => {
             answerPoints[i] += answerPoint;
         })
     })
+
+    // "..." Spreads the answerPoints array into separate arguments which the Math.max function requires
+    let largest =  Math.max(...answerPoints);
+    return answerPoints.indexOf(largest);
 }
 
 // Given the an array of strings containing code for html elements and a reference to a parent in which to append the output. Each element of the output array is added consecutively with a delay and transition (because it looks good)
