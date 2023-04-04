@@ -18,6 +18,7 @@ const gstInvoiceElm = document.getElementById("gst");
 const pstInvoiceElm = document.getElementById("pst");
 const totalInvoiceElm = document.getElementById("total");
 
+// This function manages the behavior of invoice buttons when clicked. Depending on the state of the button a different action is taken. The button state is toggled
 function manageInvoiceBtnClick(e) {
     /* Gets the string contained in the clicked button elements data-index attribute. 
       This is the index of the associated service in the services array */
@@ -36,8 +37,8 @@ function manageInvoiceBtnClick(e) {
     e.target.classList.toggle("button--remove");
 }
 
+// Add the relevant information of the service in which the button was clicked on to the beginning of the "servicesInCart" Array
 function addServiceToCalculator(index) {
-    // Add the relevant information of the service in which the button was clicked on to the beginning of the "servicesInCart" Array
     servicesInCart.unshift({
         name: services[index].name,
         price: services[index].price,
@@ -46,8 +47,8 @@ function addServiceToCalculator(index) {
     outputToHTML(buildInvoiceItems(), invoiceDataElm);
 }
 
+// Remove the serviceInCart with the index of the service in which the button was clicked
 function removeServiceFromCalculator(index) {
-    // Remove the serviceInCart with the index of the service in which the button was clicked
     servicesInCart = servicesInCart.filter((item) => {
         return item.index !== index;
     });
@@ -55,6 +56,7 @@ function removeServiceFromCalculator(index) {
     outputToHTML(buildInvoiceItems(), invoiceDataElm);
 }
 
+// Returns an array of strings containing HTML code. Builds the invoice items
 function buildInvoiceItems() {
     let output = [];
 
@@ -69,6 +71,7 @@ function buildInvoiceItems() {
     return output;
 }
 
+// Updates html for the invoice total, gst and pst
 function updateInvoiceTotals() {
     let total = 0;
     for (const item of servicesInCart) {
@@ -84,9 +87,18 @@ function updateInvoiceTotals() {
     pstInvoiceElm.innerHTML = pricePrefix + pst;
 }
 
+// Returns a number to the nearest hundredth
 function roundMoney(num) {
     return Math.ceil(num * 100) / 100;
 }
+
+function addlistenerToInvoiceBtns() {
+    const addBtns = document.querySelectorAll('.button--invoice');
+    addBtns.forEach(addBtn => {
+        addBtn.addEventListener('click', manageInvoiceBtnClick);
+    })
+}
+
 
 // FILTERING
 
@@ -98,30 +110,35 @@ const serviceCardContainerElm = document.getElementById(
 
 // Initial cards
 outputToHTML(buildServiceCards(services), serviceCardContainerElm);
-addlistenerToBtns();
+addlistenerToInvoiceBtns();
 
+// Add event listener to filter buttons
 filterBtns.forEach((filterBtn) => {
     filterBtn.addEventListener("click", manageFilterBtnClick);
 });
 
+/* This function manages the behavior of filter buttons when clicked. */
 function manageFilterBtnClick(e) {
+    // The currently active button is deactivated and the clicked button is given the active class
     const activeBtn = document.querySelector(".filter-chips__button--active");
     activeBtn.classList.remove("filter-chips__button--active");
     e.target.classList.add("filter-chips__button--active");
-
+    // Get the filter tag from the target buttons data-filter attribute
     const filterStr = e.target.getAttribute("data-filter");
+    // If the filter tag is "all" build all the services, if it isn't then build only the services that have tags match the filter tag
     if (filterStr == "all") {
         outputToHTML(buildServiceCards(services), serviceCardContainerElm);
-        addlistenerToBtns();
+        addlistenerToInvoiceBtns();
     } else {
         const filteredServices = services.filter((service) =>
             service.tags.includes(filterStr)
         );
         outputToHTML(buildServiceCards(filteredServices), serviceCardContainerElm);
-        addlistenerToBtns();
+        addlistenerToInvoiceBtns();
     }
 }
 
+// Returns an array of strings containing HTML code. Builds the service cards
 function buildServiceCards(filteredServices) {
     let output = [];
 
@@ -149,12 +166,6 @@ function buildServiceCards(filteredServices) {
     return output;
 }
 
-function addlistenerToBtns() {
-    const addBtns = document.querySelectorAll('.button--invoice');
-    addBtns.forEach(addBtn => {
-        addBtn.addEventListener('click', manageInvoiceBtnClick);
-    })
-}
 
 // QUIZ
 
@@ -237,7 +248,7 @@ function previousQuestion() {
     outputToHTML(buildQuiz(), quizDataElm);
 }
 
-// Builds html to reflect the various variables that control the quiz
+// Returns an array of strings containing HTML code. Updates the step info, generates the quiz question heading and radio inputs
 function buildQuiz() {
     let output = [];
     let currentAnswers = [];
@@ -268,7 +279,7 @@ function buildQuiz() {
     // Push the HTML code for elements using the available answer data onto the output array
     currentAnswers.forEach((answer, i) => {
         // If the user selected this answer previously, give that answer the checked attribute
-        if (i == userAnswers[currentQuestion]) {
+        if (i == userAnswers[currentQuestion] || i == 0) {
             output.push(
                 `<input type="radio" id="${i}" name="answer" value="${i}" checked><label for="${i}">${answer}</label><br>`
             );
@@ -295,7 +306,7 @@ function buildQuizResult() {
     output.push(`<h3>${quizData.treatments[winningServiceIndex].name}</h3>`);
     output.push(`<p>${quizData.treatments[winningServiceIndex].description}</p>`);
     output.push(
-        `<a href="#${servicesData.services[winningServiceIndex].id}">Scroll to ${quizData.treatments[largestIndex].name}</a>`
+        `<a href="#${servicesData.services[winningServiceIndex].id}">Scroll to ${quizData.treatments[winningServiceIndex].name}</a>`
     );
 
     return output;
