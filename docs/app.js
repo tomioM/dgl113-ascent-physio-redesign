@@ -117,7 +117,7 @@ filterBtns.forEach((filterBtn) => {
     filterBtn.addEventListener("click", manageFilterBtnClick);
 });
 
-/* This function manages the behavior of filter buttons when clicked. */
+// This function manages the behavior of filter buttons when clicked
 function manageFilterBtnClick(e) {
     // The currently active button is deactivated and the clicked button is given the active class
     const activeBtn = document.querySelector(".filter-chips__button--active");
@@ -326,7 +326,7 @@ function getWinningIndex() {
     return answerPoints.indexOf(largest);
 }
 
-// Given the an array of strings containing code for html elements and a reference to a parent in which to append the output. Each element of the output array is added consecutively with a delay and transition (because it looks good)
+// Given an array of strings containing code for html elements and a reference to a parent in which to append the output. Each element of the output array is added consecutively with a delay and transition (because it looks good)
 function outputToHTML(output, parentElem) {
     // Remove children in parent before adding the new elements
     removeAllChildNodes(parentElem);
