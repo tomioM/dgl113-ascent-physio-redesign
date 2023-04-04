@@ -293,7 +293,7 @@ function buildQuiz() {
     return output;
 }
 
-// Calculate winning diagnosis and change quiz to reflect
+// Returns an array of strings containing HTML code. Calculate winning diagnosis and change quiz to reflect
 function buildQuizResult() {
     let output = [];
 
