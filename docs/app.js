@@ -279,7 +279,7 @@ function buildQuiz() {
     // Push the HTML code for elements using the available answer data onto the output array
     currentAnswers.forEach((answer, i) => {
         // If the user selected this answer previously, give that answer the checked attribute
-        if (i == userAnswers[currentQuestion] || i == 0) {
+        if (i == userAnswers[currentQuestion]) {
             output.push(
                 `<input type="radio" id="${i}" name="answer" value="${i}" checked><label for="${i}">${answer}</label><br>`
             );
