@@ -797,6 +797,8 @@ img.member-profile__portrait--team {
 .invoice-name-price {
     display: flex;
     justify-content: space-between;
+    margin-top: 2px;
+    margin-bottom: 2px;
 }
 
 .invoice-name-price p {
