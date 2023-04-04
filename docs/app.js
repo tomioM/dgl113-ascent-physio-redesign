@@ -55,7 +55,7 @@ Promise.all([fetchQuizJson(), fetchServicesJson()])
         })
     }
 
-    // Output the all the cards initially
+    // Output all the service cards initially
     outputToHTML(buildServiceCards(services), serviceCardContainerElm);
     addlistenerToInvoiceBtns();
 
