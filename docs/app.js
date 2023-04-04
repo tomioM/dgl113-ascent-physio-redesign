@@ -8,8 +8,8 @@ The code within the anonymous function is split into three sections
 */
 
 
-/* I'm not very familiar with async programming in javascript but I've done my best to implement it properly. 
-As far as I can tell this method of making json available to the code has the most browser support */
+/* I'm not very familiar with async programming in javascript but I've done my best to implement it properly.
+This method for making json data available to the code has good support from modern browsers */
 
 // Fetches and parses the quiz json and returns a javascript object
 function fetchQuizJson() {
