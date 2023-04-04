@@ -38,7 +38,7 @@ Promise.all([fetchQuizJson(), fetchServicesJson()])
     // Global Variables
     const addBtnPhrase = "Add to invoice";
     const removeBtnPhrase = "Remove from invoice";
-    const pricePrefix = "$"
+    const pricePrefix = "$";
     let servicesInCart = [];
 
     // Element References
@@ -52,7 +52,7 @@ Promise.all([fetchQuizJson(), fetchServicesJson()])
         const addBtns = document.querySelectorAll('.button--invoice');
         addBtns.forEach(addBtn => {
             addBtn.addEventListener('click', manageInvoiceBtnClick);
-        })
+        });
     }
 
     // Output all the service cards initially
