@@ -2,7 +2,7 @@
 
 /* 
 The code within the anonymous function is split into three sections
-    || SERVICE CARD
+    || SERVICE CARDS AND INVOICE SUMMARY
     || FILTERING
     || QUIZ
 */
@@ -34,7 +34,7 @@ Promise.all([fetchQuizJson(), fetchServicesJson()])
     const quiz = quizData.questions;
 
 
-    // || SERVICE CARDS
+    // || SERVICE CARDS AND INVOICE SUMMARY
     // Global Variables
     const addBtnPhrase = "Add to invoice";
     const removeBtnPhrase = "Remove from invoice";
