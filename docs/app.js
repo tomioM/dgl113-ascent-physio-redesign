@@ -43,6 +43,7 @@ Promise.all([fetchQuizJson(), fetchServicesJson()])
 
     // Element References
     const invoiceDataElm = document.getElementById("invoice-data");
+    const serviceCardContainerElm = document.getElementById("service-card-container");
     const gstInvoiceElm = document.getElementById("gst");
     const pstInvoiceElm = document.getElementById("pst");
     const totalInvoiceElm = document.getElementById("total");
@@ -137,7 +138,6 @@ Promise.all([fetchQuizJson(), fetchServicesJson()])
     // || FILTERING
     // Element References
     const filterBtns = document.querySelectorAll("button.filter-chips__button");
-    const serviceCardContainerElm = document.getElementById("service-card-container");
 
     // Add event listeners to filter buttons
     filterBtns.forEach((filterBtn) => {
