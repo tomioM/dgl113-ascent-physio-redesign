@@ -52,7 +52,7 @@ Promise.all([fetchQuizJson(), fetchServicesJson()])
     function addlistenerToInvoiceBtns() {
         const addBtns = document.querySelectorAll('.button--invoice');
         addBtns.forEach(addBtn => {
-            addBtn.addEventListener('click', manageInvoiceBtnClick);
+            addBtn.addEventListener('click', handleInvoiceBtnClick);
         });
     }
 
@@ -61,7 +61,7 @@ Promise.all([fetchQuizJson(), fetchServicesJson()])
     addlistenerToInvoiceBtns();
 
     // This function manages the behavior of invoice buttons when clicked. Depending on the state of the button a different action is taken. The button state is toggled
-    function manageInvoiceBtnClick(e) {
+    function handleInvoiceBtnClick(e) {
         /* Gets the string contained in the clicked button elements data-index attribute. 
           This is the index of the associated service in the services array */
         const index = e.target.getAttribute("data-index");
@@ -141,11 +141,11 @@ Promise.all([fetchQuizJson(), fetchServicesJson()])
 
     // Add event listeners to filter buttons
     filterBtns.forEach((filterBtn) => {
-        filterBtn.addEventListener("click", manageFilterBtnClick);
+        filterBtn.addEventListener("click", handleFilterBtnClick);
     });
 
     // This function manages the behavior of filter buttons when clicked
-    function manageFilterBtnClick(e) {
+    function handleFilterBtnClick(e) {
         // The currently active button is deactivated and the clicked button is given the active class
         const activeBtn = document.querySelector(".filter-chips__button--active");
         activeBtn.classList.remove("filter-chips__button--active");
@@ -214,8 +214,8 @@ Promise.all([fetchQuizJson(), fetchServicesJson()])
     const startQuizBtn = document.getElementById("start-quiz-btn");
 
     // Add event listeners to buttons
-    nextBtn.addEventListener("click", nextQuestion);
-    backBtn.addEventListener("click", previousQuestion);
+    nextBtn.addEventListener("click", handleNextBtnClick);
+    backBtn.addEventListener("click", handlePreviousBtnClick);
     startQuizBtn.addEventListener("click", startQuiz);
 
     // Prevent default form behavior
@@ -245,7 +245,7 @@ Promise.all([fetchQuizJson(), fetchServicesJson()])
     }
 
     // Increment current question, get results, update quiz state
-    function nextQuestion() {
+    function handleNextBtnClick() {
         currentQuestion++;
 
         if (currentQuestion >= totalQuestions) {
@@ -258,7 +258,7 @@ Promise.all([fetchQuizJson(), fetchServicesJson()])
     }
 
     // Decrement current question, reset, update quiz state
-    function previousQuestion() {
+    function handlePreviousBtnClick() {
         // If current step is the final then Reset variables to default
         if (currentQuestion >= totalQuestions) {
             nextBtn.style.visibility = "visible";
